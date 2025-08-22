@@ -18,7 +18,7 @@ def login():
         password = request.form['password']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM User WHERE username = %s AND password = %s', (username, password))
+        cursor.execute("SELECT * FROM User WHERE username LIKE ? AND password LIKE ?", ('%' + username + '%', '%' + password + '%'))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
@@ -48,7 +48,7 @@ def register():
         email = request.form['email']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
+        cursor.execute("SELECT * FROM User WHERE username LIKE ?", ('%' + username + '%'))
         account = cursor.fetchone()
         if account:
             msg = 'Account already exists!'
@@ -59,7 +59,7 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email))
+            cursor.execute('INSERT INTO accounts VALUES (%s, %s, %s)', (username, password, email))
             conn.commit()
             msg = 'You have successfully registered!'
             

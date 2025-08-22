@@ -7,7 +7,8 @@ CREATE TABLE User (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     username TEXT NOT NULL,
-    user_password TEXT NOT NULL
+    user_password TEXT NOT NULL,
+    user_email TEXT NOT NULL,
 );
 
 CREATE TABLE Product (

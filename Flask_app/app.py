@@ -1,8 +1,8 @@
 import sqlite3
 from flask import Flask, render_template, request, session, redirect, url_for
-import re
-import os
+import re, os
 from dotenv import load_dotenv
+from functools import wraps
 
 app = Flask(__name__)
 
@@ -12,6 +12,14 @@ def get_db_connection():
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     return conn
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('username') is None or session.get('loggedin') is None:
+            return redirect('/login', code=302)
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
@@ -28,13 +36,18 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            return render_template('index.html', msg='Logged in successfully!')
+            return redirect(url_for('home'))
         else:
             msg = 'Incorrect username/password!'
     
         conn.close()
-        
+    
     return render_template('login.html', msg=msg)
+
+@app.route('/home')
+@login_required
+def home():
+    return render_template('index.html', msg='Logged in successfully!')
 
 @app.route('/logout')
 def logout():

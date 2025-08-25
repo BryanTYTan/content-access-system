@@ -1,8 +1,12 @@
 import sqlite3
 from flask import Flask, render_template, request, session, redirect, url_for
 import re
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+
+load_dotenv()
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -18,7 +22,7 @@ def login():
         password = request.form['password']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM User WHERE username LIKE ? AND password LIKE ?", ('%' + username + '%', '%' + password + '%'))
+        cursor.execute("SELECT * FROM User WHERE username LIKE ? AND user_password LIKE ?", ('%' + username + '%', '%' + password + '%'))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
@@ -68,4 +72,8 @@ def register():
     return render_template('register.html', msg=msg)
 
 if __name__ == '__main__':
+    key = os.getenv("SECRET_KEY")
+    
+    app.secret_key = key
+    
     app.run(debug=True)

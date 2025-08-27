@@ -1,17 +1,12 @@
-import sqlite3
 from flask import Flask, render_template, request, session, redirect, url_for
 import re, os
 from dotenv import load_dotenv
 from functools import wraps
+from database_access import *
 
 app = Flask(__name__)
 
 load_dotenv()
-
-def get_db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-    return conn
 
 def login_required(f):
     @wraps(f)

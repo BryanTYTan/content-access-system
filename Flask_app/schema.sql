@@ -15,8 +15,16 @@ CREATE TABLE Product (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT NOT NULL,
+    created_by INTEGER NOT NULL,
+    FOREIGN KEY (created_by) REFERENCES User (id)
+);
+
+CREATE TABLE User_Product (
     user_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User (id)
+    product_id INTEGER NOT NULL,
+    PRIMARY KEY (user_id, product_id),
+    FOREIGN KEY (user_id) REFERENCES User (id),
+    FOREIGN KEY (product_id) REFERENCES Product (id)
 );
 
 CREATE TABLE Pack (

@@ -15,3 +15,16 @@ def get_products_available():
     products = cursor.fetchall()
     
     return render_template('product_list.html', products=products)
+
+def _is_access_allowed(product_id, user_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    query = "SELECT EXISTS (SELECT 1 FROM User_Product WHERE user_id = ? AND product_id = ?)"
+    
+    cursor.execute(query, ('%' + user_id + '%', '%' + product_id + '%'))
+    user_has_access = cursor.fetchone()
+    
+    return user_has_access
+    
+    

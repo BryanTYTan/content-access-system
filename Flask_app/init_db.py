@@ -15,6 +15,9 @@ default_users = [
 
 cur.executemany("INSERT INTO User (username, user_password, user_email) VALUES (?, ?, ?)", default_users)
 
+# Get last row ID
+cur.execute("SELECT * FROM User ORDER BY id DESC LIMIT 1;")
+
 demo_id = cur.lastrowid
 
 default_products = [
@@ -25,7 +28,7 @@ default_products = [
 cur.executemany("INSERT INTO Product (title, created_by) VALUES (?, ?)", default_products)
 
 # Obtain Products Created
-cur.execute("SELECT id FROM Product WHERE created_by = ? ORDER BY id ASC", (demo_id))
+cur.execute("SELECT id FROM Product WHERE created_by = ? ORDER BY id ASC", (demo_id,))
 product_ids = [row[0] for row in cur.fetchall()]
 
 first_product_id = product_ids[0]
@@ -37,7 +40,7 @@ packs_data = [
 
 cur.executemany("INSERT INTO Pack (title, product_id) VALUES (?, ?)", packs_data)
 
-cur.execute("SELECT id FROM Pack WHERE product_id = ? ORDER BY id ASC", (first_product_id))
+cur.execute("SELECT id FROM Pack WHERE product_id = ? ORDER BY id ASC", (first_product_id,))
 pack_ids = [row[0] for row in cur.fetchall()]
 
 first_pack_id = pack_ids[0]

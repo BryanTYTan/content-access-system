@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
 from functools import wraps
+from database_access import *
 import re
 
 auth = Blueprint('auth', __name__)
@@ -26,7 +27,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
-            return redirect(url_for('home'))
+            return redirect(url_for('main.home'))
         else:
             msg = 'Incorrect username/password!'
     

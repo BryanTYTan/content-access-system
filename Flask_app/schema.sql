@@ -33,6 +33,7 @@ CREATE TABLE Pack (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT NOT NULL,
     product_id INTEGER NOT NULL,
+    published BOOLEAN NOT NULL DEFAULT 0,
     FOREIGN KEY (product_id) REFERENCES Product (id)
 );
 
@@ -41,5 +42,6 @@ CREATE TABLE Lesson (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     content TEXT NOT NULL,
     pack_id INTEGER NOT NULL,
+    published BOOLEAN NOT NULL DEFAULT 0,
     FOREIGN KEY (pack_id) REFERENCES Pack (id)
 );

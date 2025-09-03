@@ -7,3 +7,8 @@ main = Blueprint('main', __name__)
 @login_required
 def home():
     return render_template('index.html', msg='Logged in successfully!')
+
+@main.route('/allProds')
+@login_required
+def all_products():
+    return render_template('index.html', msg='All products')

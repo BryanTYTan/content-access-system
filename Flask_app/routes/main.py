@@ -11,4 +11,4 @@ def home():
 @main.route('/allProds')
 @login_required
 def all_products():
-    return render_template('index.html', msg='All products')
+    return render_template('product_list.html', msg='All products')

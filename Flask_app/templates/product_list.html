@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
+
+{% block head_links %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/product_page.css') }}">
+{% endblock %}
+
 {% block content %}
-<h1 class="word">Welcome, {{ session.username }}!</h1>
-<h3>{% block title %}Home{% endblock %}</h3>
 
 {% if values['all_prods'] %}
-    {% for product in values['all_prods'] %}
-        <p> {{ product.title }}</p>
-    {% endfor %}
+{% for product in values['all_prods'] %}
+<p> {{ product.title }}</p>
+{% endfor %}
 {% else %}
-    <p>There are currently no products</p>
+<p>There are currently no products</p>
 {% endif %}
 
 {% endblock %}

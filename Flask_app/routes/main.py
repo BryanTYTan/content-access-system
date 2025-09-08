@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, session, redirect, url_for
 from .auth import login_required
+from database_access import *
 
 main = Blueprint('main', __name__)
 
@@ -11,4 +12,11 @@ def home():
 @main.route('/allProds')
 @login_required
 def all_products():
-    return render_template('product_list.html', msg='All products')
+    values = {}
+    
+    all_prods = get_products_available()
+    
+    values['all_prods'] = all_prods
+    
+    
+    return render_template('product_list.html', values=values)

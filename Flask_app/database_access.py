@@ -15,7 +15,7 @@ def get_products_available():
     products = cursor.fetchall()
     
     cursor.close()
-    return render_template('product_list.html', products=products)
+    return products
 
 def _is_access_allowed(product_id, user_id):
     conn = get_db_connection()

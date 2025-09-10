@@ -6,14 +6,19 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-def get_products_available():
+def get_products_available(user_id=False):
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    # Get available products in db
-    cursor.execute("SELECT * FROM Product")
-    products = cursor.fetchall()
+    products = False
     
+    if user_id:
+        print(f"halo world")
+    else:
+        # Get available products in db
+        cursor.execute("SELECT * FROM Product")
+        products = cursor.fetchall()
+        
     cursor.close()
     return products
 

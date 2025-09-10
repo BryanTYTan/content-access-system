@@ -14,9 +14,8 @@ def home():
 def all_products():
     values = {}
     
-    all_prods = get_products_available()
+    all_prods = get_products_available(user_id=session.get('id'))
     
     values['all_prods'] = all_prods
-    
     
     return render_template('product_list.html', values=values)

@@ -7,12 +7,30 @@
 
 {% block content %}
 
-{% if values['all_prods'] %}
-{% for product in values['all_prods'] %}
-<p> {{ product.title }}</p>
-{% endfor %}
-{% else %}
-<p>There are currently no products</p>
-{% endif %}
+<div class="d-flex flex-row justify-content-around flex-wrap mt-4">
+    {% if values['all_prods'] %}
+
+    {% for product in values['all_prods'] %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ product.title }}
+            </h5>
+            <p class="card-text">
+
+            </p>
+            <a href="#" class="btn btn-primary">
+                Subscribe to content
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div class="alert alert-info" role="alert">
+        There are currently no products
+    </div>
+    {% endif %}
+</div>
 
 {% endblock %}

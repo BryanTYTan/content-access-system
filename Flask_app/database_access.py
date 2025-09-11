@@ -12,13 +12,15 @@ def get_products_available(user_id=False):
     
     products = False
     
-    if user_id:
-        print(f"halo world")
-    else:
-        # Get available products in db
-        cursor.execute("SELECT * FROM Product")
-        products = cursor.fetchall()
-        
+    # Join Products + Users to identify owner - TODO
+    query = "SELECT user.*, prod.* FROM User AS user INNER JOIN User_Product AS up ON user.id = up.user_id INNER JOIN Product AS prod ON up.product_id = prod.id;"
+
+    cursor.execute(query)
+    
+    products = cursor.fetchall()
+    
+    print(f"\n{products}")
+    
     cursor.close()
     return products
 

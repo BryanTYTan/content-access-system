@@ -12,14 +12,18 @@ def get_products_available(user_id=False):
     
     products = False
     
-    # Join Products + Users to identify owner - TODO
-    query = "SELECT user.*, prod.* FROM User AS user INNER JOIN User_Product AS up ON user.id = up.user_id INNER JOIN Product AS prod ON up.product_id = prod.id;"
+    query = "SELECT title FROM Product;"
 
     cursor.execute(query)
     
     products = cursor.fetchall()
     
-    print(f"\n{products}")
+    user_owns_query = "SELECT id FROM Product WHERE created_by = ?"
+    cursor.execute(user_owns_query, (user_id,))
+    
+    user_owns = cursor.fetchall()
+    
+    print(f"\n{products} - {user_owns}")
     
     cursor.close()
     return products

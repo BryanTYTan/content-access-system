@@ -32,6 +32,7 @@ def get_products_available(user_id=False):
     return products, user_owns, user_subscribed
 
 def _is_access_allowed(product_id, user_id):
+    # TODO: ALso allow access if user is owner
     conn = get_db_connection()
     cursor = conn.cursor()
     
@@ -42,7 +43,10 @@ def _is_access_allowed(product_id, user_id):
     
     cursor.close()
     return user_has_access
-    
+
+def is_subscription_valid(producT_id, user_id):
+    # TODO
+
 def _publish_pack(pack_id, user_id):
     reply = {
         'status': False,

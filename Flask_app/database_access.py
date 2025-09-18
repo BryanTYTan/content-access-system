@@ -12,7 +12,7 @@ def get_products_available(user_id=False):
     
     products = False
     
-    query = "SELECT title FROM Product;"
+    query = "SELECT id,title FROM Product;"
 
     cursor.execute(query)
     
@@ -23,10 +23,13 @@ def get_products_available(user_id=False):
     
     user_owns = cursor.fetchall()
     
-    print(f"\n{products} - {user_owns}")
+    user_subscribed_query = "SELECT product_id FROM User_Product WHERE user_id = ?"
+    cursor.execute(user_subscribed_query, (user_id,))
+    
+    user_subscribed = cursor.fetchall()
     
     cursor.close()
-    return products
+    return products, user_owns, user_subscribed
 
 def _is_access_allowed(product_id, user_id):
     conn = get_db_connection()

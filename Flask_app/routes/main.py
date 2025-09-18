@@ -11,11 +11,13 @@ def home():
 
 @main.route('/allProds')
 @login_required
-def all_products():
-    values = {}
+def all_products():    
+    all_prods, user_owned_products, user_subscribed_products = get_products_available(user_id=session.get('id'))
     
-    all_prods = get_products_available(user_id=session.get('id'))
-    
-    values['all_prods'] = all_prods
+    values = {
+        'all_prods': all_prods,
+        'owned_prods': user_owned_products,
+        'subbed_prods': user_subscribed_products,
+    }
     
     return render_template('product_list.html', values=values)

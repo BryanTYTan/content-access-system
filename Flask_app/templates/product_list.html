@@ -17,7 +17,13 @@
                 {{ product.title }}
             </h5>
             <p class="card-text">
-
+                {% if values['owned_prods'][product.id] %}
+                    <span class="badge bg-primary">Owner</span>
+                {% elif values['subbed_prods'][product.id] %}
+                    <span class="badge bg-success">Subscribed</span>
+                {% else %}
+                    <span class="badge bg-light text-dark">Unsubscribed</span>
+                {% endif %}
             </p>
             <a href="#" class="btn btn-primary">
                 Subscribe to content

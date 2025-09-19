@@ -46,6 +46,7 @@ def _is_access_allowed(product_id, user_id):
 
 def is_subscription_valid(producT_id, user_id):
     # TODO
+    return
 
 def _publish_pack(pack_id, user_id):
     reply = {

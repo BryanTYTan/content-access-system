@@ -20,9 +20,9 @@
                 {% if values['owned_prods'][product.id] %}
                     <span class="badge bg-primary">Owner</span>
                 {% elif values['subbed_prods'][product.id] %}
-                    <span class="badge bg-success">Subscribed</span>
+                    <span class="badge bg-light text-dark">Subscribed</span>
                 {% else %}
-                    <span class="badge bg-light text-dark">Unsubscribed</span>
+                    <span class="badge bg-success">Available</span>
                 {% endif %}
             </p>
             <a href="#" class="btn btn-primary">

@@ -13,9 +13,14 @@
 </head>
 
 <body>
-    <div class="topnav">
-        <a href="{{ url_for('main.home')}}">Home</a>
-        <a href="{{ url_for('main.all_products')}}">All Products</a>
+    <div class="topnav d-flex p-2 mb-2">
+        <div id="topnav_left" class="me-auto">
+            <a href="{{ url_for('main.home')}}">Home</a>
+            <a href="{{ url_for('main.all_products')}}">All Products</a>
+        </div>
+        <div id="topnav_right">
+            <a href="{{ url_for('auth.logout')}}">Log Out</a>
+        </div>
     </div>
     {% block content %}{% endblock %}
 

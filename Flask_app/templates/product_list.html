@@ -17,9 +17,9 @@
                 {{ product.title }}
             </h5>
             <p class="card-text">
-                {% if values['owned_prods'][product.id] %}
+                {% if product.id in values['owned_prods'] %}
                     <span class="badge bg-primary">Owner</span>
-                {% elif values['subbed_prods'][product.id] %}
+                {% elif product.id in values['subbed_prods'] %}
                     <span class="badge bg-light text-dark">Subscribed</span>
                 {% else %}
                     <span class="badge bg-success">Available</span>

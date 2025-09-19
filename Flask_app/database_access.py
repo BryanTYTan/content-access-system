@@ -21,12 +21,14 @@ def get_products_available(user_id=False):
     user_owns_query = "SELECT id FROM Product WHERE created_by = ?"
     cursor.execute(user_owns_query, (user_id,))
     
-    user_owns = cursor.fetchall()
+    user_owns = [row[0] for row in cursor.fetchall()]
     
     user_subscribed_query = "SELECT product_id FROM User_Product WHERE user_id = ?"
     cursor.execute(user_subscribed_query, (user_id,))
     
-    user_subscribed = cursor.fetchall()
+    user_subscribed = [row[0] for row in cursor.fetchall()]
+    
+    print(f"\n{user_owns} - {user_subscribed}")
     
     cursor.close()
     return products, user_owns, user_subscribed

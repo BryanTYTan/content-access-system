@@ -12,7 +12,7 @@ def get_products_available(user_id=False):
     
     products = False
     
-    query = "SELECT id,title FROM Product;"
+    query = "SELECT p.id, p.title, u.username FROM Product p INNER JOIN User u ON p.created_by = u.id"
 
     cursor.execute(query)
     

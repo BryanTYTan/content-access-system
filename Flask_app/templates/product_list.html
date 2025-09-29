@@ -13,18 +13,28 @@
     {% for product in values['all_prods'] %}
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title">
-                {{ product.title }}
-            </h5>
-            <p class="card-text">
-                {% if product.id in values['owned_prods'] %}
-                    <span class="badge bg-primary">Owner</span>
-                {% elif product.id in values['subbed_prods'] %}
-                    <span class="badge bg-light text-dark">Subscribed</span>
-                {% else %}
-                    <span class="badge bg-success">Available</span>
-                {% endif %}
-            </p>
+            <div class="d-flex flex-row justify-content-between">
+                <h5 class="card-title">
+                    {{ product.title }}
+                </h5>
+
+                <div>
+                    {% if product.id in values['owned_prods'] %}
+                        <span class="badge bg-primary">Owner</span>
+                    {% elif product.id in values['subbed_prods'] %}
+                        <span class="badge bg-light text-dark">Subscribed</span>
+                    {% else %}
+                        <span class="badge bg-success">Available</span>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <div class="card-text mb-3">
+                <span class="text-muted">
+                    Created by - {{ product.username }}
+                </span>
+            </div>
             <a href="#" class="btn btn-primary">
                 Subscribe to content
             </a>

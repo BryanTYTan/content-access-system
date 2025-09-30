@@ -22,13 +22,13 @@ def all_products():
     
     return render_template('product_list.html', values=values)
 
-@main.route('/subscribe/<product_id>')
+@main.route('/subscribe/<int:product_id>')
 @login_required
 def subscribe_user_to_product(product_id):
     # Determine if user is already subscribed / owner
     valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)
     
-    
+    print(f"\nHALO WORLD")
     
     # Subscribe user if not
     

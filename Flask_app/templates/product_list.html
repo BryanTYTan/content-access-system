@@ -20,24 +20,29 @@
 
                 <div>
                     {% if product.id in values['owned_prods'] %}
-                        <span class="badge bg-primary">Owner</span>
+                    <span class="badge bg-primary">Owner</span>
                     {% elif product.id in values['subbed_prods'] %}
-                        <span class="badge bg-light text-dark">Subscribed</span>
+                    <span class="badge bg-light text-dark">Subscribed</span>
                     {% else %}
-                        <span class="badge bg-success">Available</span>
+                    <span class="badge bg-success">Available</span>
                     {% endif %}
                 </div>
             </div>
-
 
             <div class="card-text mb-3">
                 <span class="text-muted">
                     Created by - {{ product.username }}
                 </span>
             </div>
+            {% if product.id in values['subbed_prods'] or product.id in values['owned_prods'] %}
             <a href="#" class="btn btn-primary">
-                Subscribe to content
+                View Course
             </a>
+            {% else %}
+            <a href="{{ url_for('main.subscribe_user_to_product', product_id=product.id) }}" class="btn btn-primary">
+                Subscribe to course
+            </a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

@@ -46,9 +46,18 @@ def _is_access_allowed(product_id, user_id):
     cursor.close()
     return user_has_access
 
-def is_subscription_valid(producT_id, user_id):
-    # TODO
-    return
+def is_subscription_valid(product_id, user_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    valid_subscription = False
+    
+    query = "SELECT EXIST (SELECT 1 FROM Product WHERE created_by = ?)"
+    
+    
+    
+    cursor.close()
+    return valid_subscription
 
 def _publish_pack(pack_id, user_id):
     reply = {

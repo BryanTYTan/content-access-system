@@ -26,9 +26,7 @@ def all_products():
 @login_required
 def subscribe_user_to_product(product_id):
     # Determine if user is already subscribed / owner
-    valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)
-    
-    print(f"\nHALO WORLD")
+    valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)      
     
     # Subscribe user if not
     

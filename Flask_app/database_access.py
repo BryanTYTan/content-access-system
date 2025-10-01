@@ -50,11 +50,18 @@ def is_subscription_valid(product_id, user_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    valid_subscription = False
+    valid_subscription = True
     
-    query = "SELECT EXIST (SELECT 1 FROM Product WHERE created_by = ?)"
+    is_user_owner_query = "SELECT EXISTS (SELECT * FROM Product WHERE id = ? AND created_by = ?)"
+    cursor.execute(is_user_owner_query, (product_id, user_id))
+    is_user_owner = cursor.fetchone()[0]
     
-    
+    is_user_subscripted_query = "SELECT EXISTS (SELECT 1 FROM Product WHERE created_by = ?)"
+    cursor.execute(is_user_subscripted_query, (user_id,))
+    is_user_subscripted = cursor.fetchone()[0]
+
+    if not is_user_owner or not is_user_subscripted:
+        valid_subscription = False
     
     cursor.close()
     return valid_subscription

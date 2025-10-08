@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, session, redirect, url_for
+from flask import Blueprint, request, render_template, session, redirect, url_for, jsonify
 from .auth import login_required
 from database_access import *
 
@@ -28,6 +28,11 @@ def subscribe_user_to_product(product_id):
     # Determine if user is already subscribed / owner
     valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)      
     
+    if not valid:
+        return jsonify({'error': 'Invalid Request', 'ok': False})
+        
+    
     # Subscribe user if not
+    
     
     # Update and return success message

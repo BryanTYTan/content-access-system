@@ -39,7 +39,7 @@
                 View Course
             </a>
             {% else %}
-            <a href="{{ url_for('main.subscribe_user_to_product', product_id=product.id) }}" class="btn btn-primary">
+            <a href="{{ url_for('main.subscribe_user_to_product', product_id=product.id) }}" class="btn btn-primary subscribe-to-course">
                 Subscribe to course
             </a>
             {% endif %}
@@ -54,4 +54,8 @@
     {% endif %}
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/all_products_page.js') }}"></script>
 {% endblock %}

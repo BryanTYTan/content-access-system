@@ -7,6 +7,12 @@
 
 {% block content %}
 
+<div id="error_alert" class="alert alert-warning alert-dismissible fade d-none mx-3" role="alert">
+    <strong id="error_title">An Error Has Occured</strong>
+    <div id="error_message">Example Error Here</div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 <div class="d-flex flex-row justify-content-around flex-wrap mt-4">
     {% if values['all_prods'] %}
 
@@ -39,7 +45,8 @@
                 View Course
             </a>
             {% else %}
-            <a href="{{ url_for('main.subscribe_user_to_product', product_id=product.id) }}" class="btn btn-primary subscribe-to-course">
+            <a href="{{ url_for('main.subscribe_user_to_product', product_id=product.id) }}"
+                class="btn btn-primary subscribe-to-course">
                 Subscribe to course
             </a>
             {% endif %}
@@ -57,5 +64,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/all_products_page.js') }}"></script>
+<script src="{{ url_for('static', filename='js/all_products_page.js') }}"></script>
 {% endblock %}

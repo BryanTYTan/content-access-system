@@ -17,7 +17,7 @@
     {% if values['all_prods'] %}
 
     {% for product in values['all_prods'] %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" style="width: 18rem;" id="product_{{ product.id }}">
         <div class="card-body">
             <div class="d-flex flex-row justify-content-between">
                 <h5 class="card-title">

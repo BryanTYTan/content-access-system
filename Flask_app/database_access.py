@@ -60,7 +60,7 @@ def is_subscription_valid(product_id, user_id):
     cursor.execute(is_user_subscripted_query, (user_id,))
     is_user_subscripted = cursor.fetchone()[0]
 
-    if not is_user_owner or not is_user_subscripted:
+    if is_user_owner or not is_user_subscripted:
         valid_subscription = False
     
     cursor.close()
@@ -107,3 +107,13 @@ def _publish_pack(pack_id, user_id):
 
     cursor.close()
     return reply
+
+def subscribe_user_to_product(user_id, product_id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("INSERT INTO User_Product (user_id, product_id) VALUES (?, ?)", (user_id, product_id))
+    
+    conn.commit()
+    conn.close()
+    

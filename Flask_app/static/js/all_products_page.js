@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', initilize_subscribe_course);
+const error_modal = document.querySelector('#error_alert');
+const error_title = document.querySelector('#error_title');
+const error_msg = document.querySelector('#error_message');
 
 function initilize_subscribe_course() {
     const buttonList = document.querySelectorAll('.subscribe-to-course');
@@ -20,13 +23,33 @@ function subscribe_current_user(event) {
 }
 
 function handleFetchResponse(response) {
+    var parsed_response = response.json();
+
     if (!response.ok) {
-        throw new Error('Request to server unsuccessful: ' + response.statusText);
+        error_modal.classList.remove('d-none');
+        error_modal.classList.add('show');
+
+        error_title.innerHTML = "An Error has occured.";
+        error_msg.innerHTML = "Please try again later.";
+
+        return
     }
-    return response.json(); 
+    
+    return parsed_response; 
 }
 
 function processItemData(data) {
+    if (!data['success']) {
+        error_modal.classList.remove('d-none');
+        error_modal.classList.add('show');
+
+        error_title.innerHTML = "An Error has occured.";
+        error_msg.innerHTML = String(data['msg']);
+
+        return
+    }
+
+
     console.log('Received data:', data);
 }
 

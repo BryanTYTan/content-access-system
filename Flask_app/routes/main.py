@@ -26,13 +26,14 @@ def all_products():
 @login_required
 def subscribe_user_to_product(product_id):
     # Determine if user is already subscribed / owner
-    valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)      
+    valid = is_subscription_valid(user_id=session.get('id'), product_id=product_id)
     
     if not valid:
-        return jsonify({'error': 'Invalid Request', 'ok': False})
+        return jsonify({'msg': 'User is already Subscribed / User is the owner', 'success': False})
         
     
     # Subscribe user if not
-    
+    subscribe_user_to_product(user_id=session.get('id'), product_id=product_id)
     
     # Update and return success message
+    return jsonify({'msg': "", 'success': True})

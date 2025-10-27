@@ -33,7 +33,7 @@ def subscribe_user_to_product(product_id):
         
     
     # Subscribe user if not
-    subscribe_user_to_product(user_id=session.get('id'), product_id=product_id)
+    # subscribe_user_to_product(user_id=session.get('id'), product_id=product_id)
     
     # Update and return success message
     return jsonify({'msg': "", 'success': True})

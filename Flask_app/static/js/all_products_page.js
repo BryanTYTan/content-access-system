@@ -2,6 +2,11 @@ document.addEventListener('DOMContentLoaded', initilize_subscribe_course);
 const error_modal = document.querySelector('#error_alert');
 const error_title = document.querySelector('#error_title');
 const error_msg = document.querySelector('#error_message');
+const notif_modal = document.querySelector('#notification_alert');
+const notif_title = document.querySelector('#notification_title');
+const notif_msg = document.querySelector('#notification_message');
+const def_timeout = 10000;
+
 
 function initilize_subscribe_course() {
     const buttonList = document.querySelectorAll('.subscribe-to-course');
@@ -17,12 +22,12 @@ function subscribe_current_user(event) {
     const detailUrl = event.currentTarget.getAttribute('href'); 
 
     fetch(detailUrl)
-        .then(handleFetchResponse)
-        .then(processItemData)
+        .then(handleUserSubFecthResponse)
+        .then(processUserSub)
         .catch(handleFetchError);
 }
 
-function handleFetchResponse(response) {
+function handleUserSubFecthResponse(response) {
     var parsed_response = response.json();
 
     if (!response.ok) {
@@ -38,7 +43,7 @@ function handleFetchResponse(response) {
     return parsed_response; 
 }
 
-function processItemData(data) {
+function processUserSub(data) {
     if (!data['success']) {
         error_modal.classList.remove('d-none');
         error_modal.classList.add('show');
@@ -49,8 +54,21 @@ function processItemData(data) {
         return
     }
 
+    notif_modal.classList.remove('d-none');
+    notif_modal.classList.add('show');
 
-    console.log('Received data:', data);
+    notif_title.innerHTML = "Success.";
+    notif_msg.innerHTML = "Subscribed to course.";
+
+    
+    setTimeout(function() {
+      const alertInstance = new bootstrap.Alert(notif_modal);
+
+      alertInstance.close(); 
+      
+    }, def_timeout);
+
+    return
 }
 
 function handleFetchError(error) {
